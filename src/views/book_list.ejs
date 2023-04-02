@@ -1,0 +1,12 @@
+<%- include('partials/header'); -%>
+<h1><%= title %></h1>
+
+<ul>
+  <% book_list.forEach(function(book){ %>
+  <li>
+    <a href=" <%= book.url %> "><%= book.title %></a>(<%= book.author.name %>)
+  </li>
+  <% }); %>
+
+  <!-- Implementar mensje si no hay libros -->
+</ul>

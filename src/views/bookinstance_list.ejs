@@ -1,0 +1,15 @@
+<%- include('partials/header'); -%>
+<h1><%= title %></h1>
+
+<ul>
+  <% bookinstance_list.forEach(function(bi){ %>
+  <li>
+    <a href=" <%= bi.url %> "><%= bi.book.title %> : <%= bi.imprint %> - </a
+    >(<%= bi.status %>) <% if (bi.status !== 'Available') { %>
+    <span>(Due: <%= bi.due_back %> )</span>
+    <% } %>
+  </li>
+  <% }); %>
+
+  <!-- Implementar mensje si no hay instancias de libros -->
+</ul>

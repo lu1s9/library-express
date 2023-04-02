@@ -1,0 +1,28 @@
+<%- include('partials/header'); -%>
+<h1>Title: <%= title %></h1>
+<p>
+  <strong>Author: </strong>
+  <a href="<%= book.author.url %>"><%= book.author.name %></a>
+</p>
+<p><strong>Summary: </strong> <%= book.summary %></p>
+<p><strong>ISBN: </strong> <%= book.isbn %></p>
+<p>
+  <strong>Genre: </strong>
+  <% book.genre.forEach(function(val, index) { %>
+  <a href="<%= val.url %>"><%= val.name %> </a>
+  <% }); %>
+  <h4>Copies</h4>
+  <% book_instances.forEach(function(val) { %>
+  <hr>
+  <p><%= val.status %></p>
+  <p><strong>Imprint: </strong><%= val.imprint %>
+  </p>
+  <% if (val.status != 'Available'){ %>
+    <p><strong>Due back: </strong> <%= val.due_back %>
+    </p>
+  <% }%>
+  <p><strong>ID: </strong><a href="<%= val.url %> "><%= val.id %></a></p>
+  <% }); %>
+</p>
+
+<!-- Implementar mensje si no hay instancias de libros -->

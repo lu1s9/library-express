@@ -1,0 +1,12 @@
+<%- include('partials/header'); -%>
+<h1><%= title %></h1>
+
+<ul>
+  <% genre_list.forEach(function(genre){ %>
+  <li>
+    <a href=" <%= genre.url %> "><%= genre.name %></a>
+  </li>
+  <% }); %>
+
+  <!-- Implementar mensje si no hay instancias de libros -->
+</ul>

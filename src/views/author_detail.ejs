@@ -1,0 +1,19 @@
+<%- include('partials/header'); -%>
+<h1><%= title %> </h1>
+<h1>Author: <%= author.name %></h1>
+<h4> Books</h4>
+
+<dl>
+
+  <% author_books.forEach(function(book){ %>
+    <dt>
+      <a href="<%= book.url %>"><%= book.title %></a>
+      <dd>
+        <%= book.summary %> 
+      </dd>
+    </dt>
+  <% }); %>
+</dl>
+
+
+  <!-- Implementar mensje si no hay instancias de libros -->
