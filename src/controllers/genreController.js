@@ -1,5 +1,6 @@
 import { Genre } from "../models/genre.js";
 import { Book } from "../models/book.js";
+import { body, validationResult } from "express-validator";
 
 // Display list of all Genre.
 export const genre_list = async (req, res) => {
@@ -17,13 +18,42 @@ export const genre_detail = async (req, res) => {
 
 // Display Genre create form on GET.
 export const genre_create_get = (req, res) => {
-  res.send("NOT IMPLEMENTED: Genre create GET");
+  res.render("genre_form", { title: "Create Genre" });
 };
 
 // Handle Genre create on POST.
-export const genre_create_post = (req, res) => {
-  res.send("NOT IMPLEMENTED: Genre create POST");
-};
+export const genre_create_post = [
+  body("name", "Genre name required").trim().isLength({ min: 1 }).escape(),
+
+  async (req, res, next) => {
+    const errors = validationResult(req);
+
+    // Create a genre object with escaped and trimmed data.
+    const genre = new Genre({ name: req.body.name });
+    if (!errors.isEmpty()) {
+      // There are errors. Render the form again with sanitized values/error messages.
+      res.render("genre_form", {
+        title: "Create Genre",
+        genre,
+        errors: errors.array(),
+      });
+      return;
+    } else {
+      // Data from form is valid.
+      // Check if Genre with same name already exists.
+      const found_genre = await Genre.findOne({ name: req.body.name });
+
+      if (found_genre) {
+        // Genre exists, redirect to its detail page.
+        res.redirect(found_genre.url);
+      } else {
+        genre.save();
+        // Genre saved. Redirect to genre detail page.
+        res.redirect(genre.url);
+      }
+    }
+  },
+];
 
 // Display Genre delete form on GET.
 export const genre_delete_get = (req, res) => {

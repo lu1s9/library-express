@@ -1,0 +1,45 @@
+<%- include('partials/header'); -%>
+<h1><%= title %></h1>
+
+<form action="" method="post">
+  <label for="book">Book: </label>
+  <select name="book" id="book">
+    <% book_list.forEach(function(book){ %>
+    <option value="<%= book._id %>"><%= book.title %></option>
+    <% }) %>
+
+    <label for="imprint">Imprint: </label>
+    <input
+      type="text"
+      name="imprint"
+      id="imprint"
+      placeholder="Publisher and date information"
+      value="<%= typeof bookinstance == 'undefined' ? '' : bookinstance.imprint %>"
+    />
+
+    <label for="due_back">Date when book available: </label>
+    <input
+      type="date"
+      name="due_back"
+      id="due_back"
+      value="<%= typeof bookinstance == 'undefined' ? '' : bookinstance.due_back %>"
+    />
+
+    <label for="status">Status: </label>
+    <select name="status" id="status">
+      <option value="Maintenance">Maintenance</option>
+      <option value="Available">Available</option>
+      <option value="Loaned">Loaned</option>
+      <option value="Reserverd">Reserved</option>
+    </select>
+  </select>
+  <input type="submit" value="Submit" />
+</form>
+
+<% if (typeof errors != 'undefined') { %>
+<ul>
+  <% errors.forEach(function(error){ %>
+  <li><%= error.msg %></li>
+  <% }); %>
+</ul>
+<% } %>

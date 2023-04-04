@@ -13,6 +13,9 @@ import bookInstanceRouter from "./routes/bookInstance.js";
 
 const app = express();
 
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+
 app.use("/", indexRouter);
 app.use("/books", bookRouter);
 app.use("/authors", authorRouter);
@@ -22,9 +25,6 @@ app.use("/bookInstances", bookInstanceRouter);
 app.use("/public", express.static(path.join(__dirname, "public")));
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
-
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
 
 app.get("/", (req, res) => {
   main();
